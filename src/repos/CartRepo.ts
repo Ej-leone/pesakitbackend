@@ -1,4 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { ICart, ICartProduct } from '@src/models/Cart';
+
 import { getRandomInt } from '@src/util/misc';
 import orm from './MockOrm';
 /**
@@ -6,7 +10,7 @@ import orm from './MockOrm';
  */
 async function getUserCart(userid:string): Promise<ICart | undefined> {
   const db = await orm.openDb();
-  return db.cart.find((cart) => cart.userid === userid );
+  return db.cart.find((cart) => cart.userId === userid );
 }
 
 /**
@@ -24,10 +28,10 @@ async function addToCart(prod: ICartProduct,userid:string): Promise<void> {
  */
 async function updateCart(cart: ICart): Promise<void> {
   const db = await orm.openDb();
-  for (let i = 0; i < db.carts.length; i++) {
-    if (db.carts[i].id === cart.id) {
-      const dbCart = db.carts[i];
-      db.carts[i] = {
+  for (let i = 0; i < db.cart.length; i++) {
+    if (db.cart[i].userId === cart.userId) {
+      const dbCart = db.cart[i];
+      db.cart[i] = {
         ...dbCart,
         // Assuming carts have different properties than users
         // Update cart-specific properties here
@@ -40,11 +44,11 @@ async function updateCart(cart: ICart): Promise<void> {
 /**
  * Delete one cart.
  */
-async function deleteCart(id: number): Promise<void> {
+async function deleteCart(id: string): Promise<void> {
   const db = await orm.openDb();
-  for (let i = 0; i < db.carts.length; i++) {
-    if (db.carts[i].id === id) {
-      db.carts.splice(i, 1);
+  for (let i = 0; i < db.cart.length; i++) {
+    if (db.cart[i].userId === id) {
+      db.cart.splice(i, 1);
       return orm.saveDb(db);
     }
   }

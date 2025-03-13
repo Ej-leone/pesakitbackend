@@ -1,7 +1,7 @@
 import { isString } from 'jet-validators';
 import { parseObject, TParseOnError } from 'jet-validators/utils';
 
-import { isRelationalKey, transIsDate } from '@src/util/validators';
+import {  transIsDate } from '@src/util/validators';
 
 
 /******************************************************************************
@@ -22,6 +22,7 @@ const DEFAULT_USER_VALS = (): IUser => ({
 ******************************************************************************/
 
 export interface IUser {
+  passwordHash?: string;
   id: string;
   name: string;
   email: string;
@@ -60,6 +61,7 @@ const parseUser = parseObject<IUser>({
   email: isString,
   password: isString,
   created: transIsDate,
+  passwordHash: (arg: unknown): arg is string | undefined => arg === undefined || isString(arg),
 });
 
 

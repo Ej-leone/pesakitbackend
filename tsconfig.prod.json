@@ -14,7 +14,8 @@
     },
     "useUnknownInCatchVariables": false,
     "sourceMap": false,
-    "removeComments": true
+    "removeComments": true,
+    "types": ["node", "eslint"]
   },
   "include": [
     "src/**/*.ts",

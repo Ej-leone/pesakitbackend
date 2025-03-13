@@ -48,7 +48,7 @@ async function updateOne(user: IUser): Promise<void> {
 /**
  * Delete a user by their id.
  */
-async function _delete(id: number): Promise<void> {
+async function _delete(id: string): Promise<void> {
   const persists = await UserRepo.persists(id);
   if (!persists) {
     throw new RouteError(

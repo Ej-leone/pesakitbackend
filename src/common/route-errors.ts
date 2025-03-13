@@ -41,13 +41,11 @@ export class ValidationError extends RouteError {
  */
 export class AuthenticationError extends RouteError {
 
-  public static MESSAGE = 'N';
+ 
 
-  public constructor(errors: IParseObjectError[]) {
-    const msg = JSON.stringify({
-      errors,
-    });
-    super(HttpStatusCodes.UNAUTHORIZED, msg);
+  public constructor(customMessage:string) {
+   
+    super(HttpStatusCodes.UNAUTHORIZED, customMessage);
   }
 }
 

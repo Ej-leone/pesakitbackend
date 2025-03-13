@@ -1,11 +1,11 @@
 import ProductService from '@src/services/ProductService';
 import { IReq, IRes, parseReq } from './common';
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
-import { isNumber } from 'jet-validators';
+import { isNumber, isString } from 'jet-validators';
 import { transform } from 'jet-validators/utils';
 
 const Validators = {
-  get : parseReq({ id: transform(Number, isNumber) }),
+  get : parseReq({ id: isString }),
 } as const;
 
 

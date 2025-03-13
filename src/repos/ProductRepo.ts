@@ -11,7 +11,7 @@ import { getRandomInt } from '@src/util/misc';
  */
 async function add(product: IProduct): Promise<void> {
   const db = await orm.openDb();
-  product.id = getRandomInt();
+  product.id = getRandomInt().toString();
   db.products.push(product);
   return orm.saveDb(db);
 }

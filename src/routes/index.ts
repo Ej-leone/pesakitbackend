@@ -20,6 +20,7 @@ const apiRouter = Router();
 const userRouter = Router();
 
 // Get all users
+//TODO: turn this into admin routes
 userRouter.get(Paths.Users.Get, UserRoutes.getAll);
 userRouter.post(Paths.Users.Add, UserRoutes.add);
 userRouter.put(Paths.Users.Update, UserRoutes.update);
@@ -57,7 +58,7 @@ CartRouter.post(Paths.Cart.checkout,
 
 
 
-// Add UserRouter
+// Admin Routes to
 apiRouter.use(Paths.Users.Base, userRouter);
 apiRouter.use(Paths.Auth.Base, AuthRouter);
 apiRouter.use(Paths.Products.Base, ProductRouter);

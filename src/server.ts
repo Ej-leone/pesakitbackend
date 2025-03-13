@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import morgan from 'morgan';
 import path from 'path';
 import helmet from 'helmet';
@@ -45,6 +49,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
 
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

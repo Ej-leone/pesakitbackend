@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {  isString ,isObjectArray, isNumber} from 'jet-validators';
 import { parseObjectArray, IParseObjectError } from 'jet-validators/utils';
 import { transform } from 'jet-validators/utils';
@@ -18,7 +20,8 @@ const parseProductsArrWithError = parseObjectArray({
 
 const Validators = {
   add : parseReq({ 
-   // userId: isNumber, 
+    id: isString,
+    userId: isString, 
   }),    //, {  amount: isNumber }
 } as const;
 
@@ -37,7 +40,7 @@ const Validators = {
  */
 async function addToCart(req: IReq, res: IRes) {
   const { id } = Validators.add(req.body);
-  const result  =  await CartService.addtoCart(id);
+  const result  =  await CartService.addtoCart({ amount: 0, productid: ''},id);
   res.status(HttpStatusCodes.OK).send(result);
 }
 

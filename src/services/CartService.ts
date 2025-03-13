@@ -18,10 +18,33 @@ async function retreiveCart(userId: string): Promise<ICart| undefined> {
 }
    
 
+function getCartByUserId(userId: string): Promise<void> {
+  console.log('getCartByUserId called with:', userId);
+  return Promise.resolve();
+}
+
+function updateCartItemById(id: string): Promise<void> {
+  console.log('updateCartItemById called with:', id);
+  return Promise.resolve();
+}
+
+function deleteCartItemById(id: string): Promise<void> {
+  console.log('deleteCartItemById called with:', id);
+  return Promise.resolve();
+}
+
+function clearCartItemById(id: string): Promise<void> {
+  console.log('clearCartItemById called with:', id);
+  return Promise.resolve();
+}
 
 
   
 export default {
   addtoCart,
+  getCartByUserId,
+  updateCartItemById,
+  deleteCartItemById,
+  clearCartItemById,
   retreiveCart,
 } as const;

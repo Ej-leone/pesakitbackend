@@ -24,7 +24,7 @@ async function getOne(email: string): Promise<IUser | null> {
 /**
  * See if a user with the given id exists.
  */
-async function persists(id: number): Promise<boolean> {
+async function persists(id: string): Promise<boolean> {
   const db = await orm.openDb();
   for (const user of db.users) {
     if (user.id === id) {
@@ -47,7 +47,7 @@ async function getAll(): Promise<IUser[]> {
  */
 async function add(user: IUser): Promise<void> {
   const db = await orm.openDb();
-  user.id = getRandomInt();
+  user.id = getRandomInt().toString();
   user.passwordHash = await hashPassword(user.password);
   db.users.push(user);
   return orm.saveDb(db);
@@ -74,7 +74,7 @@ async function update(user: IUser): Promise<void> {
 /**
  * Delete one user.
  */
-async function delete_(id: number): Promise<void> {
+async function delete_(id: string): Promise<void> {
   const db = await orm.openDb();
   for (let i = 0; i < db.users.length; i++) {
     if (db.users[i].id === id) {
@@ -106,7 +106,7 @@ async function insertMult(
   const db = await orm.openDb(),
     usersF = [ ...users ];
   for (const user of usersF) {
-    user.id = getRandomInt();
+    user.id = getRandomInt().toString();
     user.created = new Date();
   }
   db.users = [ ...db.users, ...users ];
@@ -139,8 +139,9 @@ async function findUserByEmail(email: string)
  *  to true if the password is correct, false otherwise.
  */
 async function verifyPassword(user: IUser
-, password: string): Promise<boolean> {
-  return    await bcrypt.compare(password,user.passwordHash);
+  , password: string): Promise<boolean> {
+  const pass = user?.passwordHash ?? '';
+  return    await bcrypt.compare(password,pass);
 }
 
 /**
