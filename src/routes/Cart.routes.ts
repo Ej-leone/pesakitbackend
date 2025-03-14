@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+
 import {  isString ,isObjectArray, isNumber} from 'jet-validators';
 import { parseObjectArray, IParseObjectError } from 'jet-validators/utils';
 import { transform } from 'jet-validators/utils';
@@ -15,11 +16,12 @@ import HttpStatusCodes from '@src/common/HttpStatusCodes';
 const Validators = {
   add : parseReq({ 
     userId: isString, 
+    //@ts-expect-error : type error 
     product: isObjectArray({
       productid: isString,
       amount: isNumber,
     })
-  }),   
+  }) ,   
 } as const;
 
 
