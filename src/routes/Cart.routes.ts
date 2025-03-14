@@ -8,21 +8,18 @@ import { IReq, IRes, parseReq } from './common';
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
 
 
-const parseProductsArrWithError = parseObjectArray({
-  amount: isNumber,
-  name: isString,
-}, errors => {
-  console.log(errors); // =>
 
-});
 
 
 
 const Validators = {
   add : parseReq({ 
-    id: isString,
     userId: isString, 
-  }),    //, {  amount: isNumber }
+    product: isObjectArray({
+      productid: isString,
+      amount: isNumber,
+    })
+  }),   
 } as const;
 
 
@@ -32,15 +29,54 @@ const Validators = {
  *   post:
  *     summary: Add item to cart
  *     description: Add a specified item to the user's cart
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *               product:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     productid:
+ *                       type: string
+ *                     amount:
+ *                       type: number
  *     responses:
  *       200:
  *         description: Item successfully added to cart
  *         content:
  *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     userId:
+ *                       type: string
+ *                     product:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           productid:
+ *                             type: string
+ *                           amount:
+ *                             type: number
  */
 async function addToCart(req: IReq, res: IRes) {
-  const { id } = Validators.add(req.body);
-  const result  =  await CartService.addtoCart({ amount: 0, productid: ''},id);
+  const { userId , product} = Validators.add(req.body);
+  const result  =  await CartService.addtoCart(product,userId);
   res.status(HttpStatusCodes.OK).send(result);
 }
 

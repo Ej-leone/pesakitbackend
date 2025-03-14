@@ -16,7 +16,7 @@ async function login(email: string, password: string):
 
   const isPasswordValid = await UserRepo.verifyPassword(user, password);
   if (!isPasswordValid) {
-    throw new Error('Invalid password');
+    throw new AuthenticationError('Invalid password');
   }
 
   // Additional logic for successful login can be added here

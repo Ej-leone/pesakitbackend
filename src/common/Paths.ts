@@ -19,7 +19,7 @@ export default {
     checkout:  '/checkout',
   },
   Users: {
-    Base: '/users',
+    Base: '/admin',
     Get: '/all',
     Add: '/add',
     Update: '/update',
